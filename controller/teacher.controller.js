@@ -23,4 +23,19 @@ const getAllTeacher = async(req,res) => {
         
     }
 }
-export {createTeacher, getAllTeacher}
+
+// get techer by id
+const getSingleTeacher = async (req,res) => {
+    try {
+        const {id} = req.params
+        const teacher = await Teacher.findById(id);
+        if(!teacher){
+            return res.status(401).json({message:"invalid teacher"})
+        }
+        res.status(200).json({message:`you get ${teacher.lastName} teacher`,teacher})
+    } catch (error) {
+        res.status(500).json({error:error.message})
+        
+    }
+}
+export {createTeacher, getAllTeacher,getSingleTeacher}
